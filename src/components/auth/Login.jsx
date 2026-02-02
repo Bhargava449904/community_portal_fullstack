@@ -11,11 +11,11 @@ function Login({ onSwitchToRegister }) {
   const [success, setSuccess] = useState("");
 
   const handleLogin = async (e) => {
-    console.log("ok clicked")
     e.preventDefault();
     setError("");
     setSuccess("");
-
+    
+    console.log("ok clicked")
     try {
       const formData = new FormData();
       formData.append("email", email);
