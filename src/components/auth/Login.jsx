@@ -14,7 +14,7 @@ function Login({ onSwitchToRegister }) {
     e.preventDefault();
     setError("");
     setSuccess("");
-    
+
     console.log("ok clicked")
     try {
       const formData = new FormData();
@@ -63,7 +63,7 @@ function Login({ onSwitchToRegister }) {
       {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
       {success && <p style={{ color: "green", marginBottom: "10px" }}>{success}</p>}
 
-      <form onSubmit={handleLogin}>
+      <form >
         <input
           type="email"
           placeholder="Email"
@@ -80,7 +80,7 @@ function Login({ onSwitchToRegister }) {
           required
         />
 
-        <button className="login-button" type="submit">
+        <button className="login-button" type="submit" onClick={handleLogin}>
           Login
         </button>
       </form>
