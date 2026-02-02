@@ -11,6 +11,7 @@ function Login({ onSwitchToRegister }) {
   const [success, setSuccess] = useState("");
 
   const handleLogin = async (e) => {
+    console.log("ok clicked")
     e.preventDefault();
     setError("");
     setSuccess("");
