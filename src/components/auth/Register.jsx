@@ -8,13 +8,13 @@ function Register({ onSwitchToLogin }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
+  const handleRegister = async () => {
+    console.log("REGISTER CLICKED");
+
     setError("");
     setSuccess("");
 
     try {
-      // ✅ FormData instead of JSON
       const formData = new FormData();
       formData.append("username", username);
       formData.append("email", email);
@@ -24,8 +24,8 @@ function Register({ onSwitchToLogin }) {
         "https://issue-portal-b46v.onrender.com/register/",
         {
           method: "POST",
-          body: formData,          // ✅ important
-          credentials: "include",  // safe for future cookies
+          body: formData,
+          credentials: "include",
         }
       );
 
@@ -36,52 +36,57 @@ function Register({ onSwitchToLogin }) {
         return;
       }
 
-      setSuccess("Account created successfully");
+      setSuccess(data.message || "Account created successfully");
+
       setUsername("");
       setEmail("");
       setPassword("");
 
+      // optional: switch to login after success
+      setTimeout(() => {
+        onSwitchToLogin();
+      }, 1200);
+
     } catch (err) {
+      console.error(err);
       setError("Server not responding");
     }
   };
 
   return (
-    <div className="modal-box">
+    <>
       <h2>Create Account</h2>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
 
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+      />
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-        <button className="register-btn" type="submit">
-          Create Account
-        </button>
-      </form>
+      <button className="register-btn" onClick={handleRegister}>
+        Create Account
+      </button>
 
       <p>
         Already have an account?
@@ -92,7 +97,7 @@ function Register({ onSwitchToLogin }) {
           Login
         </span>
       </p>
-    </div>
+    </>
   );
 }
 

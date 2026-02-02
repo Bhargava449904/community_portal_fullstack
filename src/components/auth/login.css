@@ -9,7 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
+  pointer-events: auto;
 }
 
 /* Modal box */
@@ -20,6 +21,8 @@
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   text-align: center;
+  position: relative;        /* ✅ REQUIRED */
+  pointer-events: auto;      /* ✅ REQUIRED */
 }
 
 /* Headings */
@@ -38,17 +41,7 @@
   outline: none;
 }
 
-/* Button */
-/* .modal-box button {
-  width: 100%;
-  padding: 10px;
-  background-color: #2563eb;
-  color:rgb(255, 255, 255);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-} */
-
+/* Login Button */
 .login-button {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: #ffffff;
@@ -59,7 +52,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 300px;
+  width: 100%;
 }
 
 .login-button:hover {
@@ -68,21 +61,27 @@
   box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
 }
 
-/* Click effect */
 .login-button:active {
   transform: scale(0.95);
 }
 
-.close-btn{
-    
-    margin-left: 90%;
-    border-collapse: collapse;
+/* Close button */
+.close-btn {
+  position: absolute;        /* ✅ FIXED */
+  top: 12px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
-.close-btn:hover{
-    transform: translateY(-2px);
+
+.close-btn:hover {
+  transform: scale(1.1);
 }
-.close-btn:active{
-    transform: scale(0.95);
+
+.close-btn:active {
+  transform: scale(0.95);
 }
 
 /* Switch text */
