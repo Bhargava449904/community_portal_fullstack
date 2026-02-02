@@ -14,17 +14,20 @@ function Register({ onSwitchToLogin }) {
     setSuccess("");
 
     try {
-      const response = await fetch("https://issue-portal-b46v.onrender.com/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      });
+      // ✅ FormData instead of JSON
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("email", email);
+      formData.append("password", password);
+
+      const response = await fetch(
+        "https://issue-portal-b46v.onrender.com/register/",
+        {
+          method: "POST",
+          body: formData,          // ✅ important
+          credentials: "include",  // safe for future cookies
+        }
+      );
 
       const data = await response.json();
 
@@ -37,6 +40,7 @@ function Register({ onSwitchToLogin }) {
       setUsername("");
       setEmail("");
       setPassword("");
+
     } catch (err) {
       setError("Server not responding");
     }
@@ -55,6 +59,7 @@ function Register({ onSwitchToLogin }) {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
 
         <input
@@ -62,6 +67,7 @@ function Register({ onSwitchToLogin }) {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
@@ -69,6 +75,7 @@ function Register({ onSwitchToLogin }) {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button className="register-btn" type="submit">
@@ -90,4 +97,3 @@ function Register({ onSwitchToLogin }) {
 }
 
 export default Register;
-
