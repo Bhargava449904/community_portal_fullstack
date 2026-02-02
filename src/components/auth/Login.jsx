@@ -8,10 +8,12 @@ function Login({ onSwitchToRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
     try {
       const formData = new FormData();
@@ -30,16 +32,22 @@ function Login({ onSwitchToRegister }) {
       const data = await response.json();
 
       if (!response.ok) {
+        // ❌ login failed
         setError(data.error || "Invalid credentials");
         return;
       }
 
-      // 🔥 ROLE-BASED ROUTING
-      if (data.role === "citizen") {
-        navigate("/create_issue");
-      }else {
-        navigate("/"); // fallback
-      }
+      // ✅ login success
+      setSuccess(data.message || "Login successful");
+
+      // small delay so user can see success message
+      setTimeout(() => {
+        if (data.role === "citizen") {
+          navigate("/create_issue");
+        } else {
+          navigate("/");
+        }
+      }, 1000);
 
     } catch (err) {
       console.error(err);
@@ -51,7 +59,8 @@ function Login({ onSwitchToRegister }) {
     <div className="modal-box">
       <h2>Login</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "red", marginBottom: "10px" }}>{error}</p>}
+      {success && <p style={{ color: "green", marginBottom: "10px" }}>{success}</p>}
 
       <form onSubmit={handleLogin}>
         <input
