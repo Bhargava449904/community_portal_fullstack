@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../dashborad/Dashboard.css";
+import "./Dashboard.css";
 
 import Login from "../auth/Login";
 import Register from "../auth/Register";
