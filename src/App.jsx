@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import { Dashboard } from "./components/dashborad/Dashboard";
+import Citizendash from "./components/dashborad/Citizendash";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<Dashboard/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/create_issue" element={<Citizendash />} />
       </Routes>
     </BrowserRouter>
   );
