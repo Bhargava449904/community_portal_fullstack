@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../dashborad/Citizendash.css";
 
 function CitizenDash() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
@@ -39,56 +42,72 @@ function CitizenDash() {
       }
 
       setSuccess("Issue created successfully ✅");
-
       setTitle("");
       setDescription("");
       setLocation("");
       setImage(null);
 
-    } catch (err) {
+    } catch {
       setError("Server not responding");
     }
   };
 
   return (
-    <div className="citizen-container">
-      <h2>Citizen Dashboard</h2>
-      <p>Create a new issue</p>
+    <div className="dashboard">
+      
+      {/* Sidebar */}
+      <div className="sidebar">
+        <h3>Citizen</h3>
 
-      {error && <p className="error-text">{error}</p>}
-      {success && <p className="success-text">{success}</p>}
+        <button onClick={() => navigate("/")}>
+          Create Issue
+        </button>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Issue title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+        <button onClick={() => navigate("/my-issues")}>
+          View My Issues
+        </button>
+      </div>
 
-        <textarea
-          placeholder="Issue description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+      {/* Main Content */}
+      <div className="citizen-container">
+        <h2>Citizen Dashboard</h2>
+        <p>Create a new issue</p>
 
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
+        {error && <p className="error-text">{error}</p>}
+        {success && <p className="success-text">{success}</p>}
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Issue title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
-        <button type="submit">Create Issue</button>
-      </form>
+          <textarea
+            placeholder="Issue description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+
+          <button type="submit">Create Issue</button>
+        </form>
+      </div>
     </div>
   );
 }
