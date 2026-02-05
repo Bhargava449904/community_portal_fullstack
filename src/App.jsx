@@ -3,7 +3,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import  Dashboard  from "./components/dashboard/Dashboard";
 import Citizendash from "./components/dashboard/Citizendash";
-import MyIssues from "./components/dashborad/Myissues";
+import MyIssues from "./components/dashboard/Myissues";
 
 function App() {
   return (
