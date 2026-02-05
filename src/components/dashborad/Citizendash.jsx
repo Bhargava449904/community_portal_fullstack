@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../src/components/dashborad/citizendash.css";
+import "./citizendash.css";
 
 function CitizenDash() {
   const [title, setTitle] = useState("");
