@@ -1,0 +1,73 @@
+body {
+  background-color: #f4f6f8;
+  font-family: Arial, sans-serif;
+}
+
+/* Main container */
+.citizen-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.citizen-container h2 {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.citizen-container p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Inputs & textarea */
+.citizen-container input,
+.citizen-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.citizen-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* File input */
+.citizen-container input[type="file"] {
+  padding: 5px;
+}
+
+/* Button */
+.citizen-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.citizen-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Messages */
+.error-text {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.success-text {
+  color: green;
+  margin-bottom: 10px;
+}
