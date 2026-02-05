@@ -1,37 +1,74 @@
-body {
+/* Page layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
   background-color: #f4f6f8;
   font-family: Arial, sans-serif;
 }
 
-/* Main container */
-.citizen-container {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1f2937;
+  color: #ffffff;
+  padding: 20px;
 }
 
-/* Headings */
+.sidebar h3 {
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+.sidebar-btn {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background-color: #374151;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.sidebar-btn:hover {
+  background-color: #4b5563;
+}
+
+/* Active (Create Issue) */
+.sidebar-btn.active {
+  background-color: #2563eb;
+}
+
+/* Main form container */
+.citizen-container {
+  background-color: #ffffff;
+  padding: 25px;
+  margin: 30px;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 .citizen-container h2 {
   margin-bottom: 5px;
-  color: #333;
 }
 
 .citizen-container p {
-  margin-bottom: 20px;
-  color: #666;
+  margin-bottom: 15px;
+  color: #555;
 }
 
-/* Inputs & textarea */
+/* Inputs */
 .citizen-container input,
 .citizen-container textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
+  padding: 9px;
+  margin-bottom: 12px;
   border: 1px solid #ccc;
+  border-radius: 4px;
   font-size: 14px;
 }
 
@@ -40,34 +77,29 @@ body {
   min-height: 80px;
 }
 
-/* File input */
-.citizen-container input[type="file"] {
-  padding: 5px;
-}
-
-/* Button */
+/* Submit button */
 .citizen-container button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #2563eb;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 15px;
   cursor: pointer;
 }
 
 .citizen-container button:hover {
-  background-color: #0056b3;
+  background-color: #1d4ed8;
 }
 
 /* Messages */
 .error-text {
-  color: red;
+  color: #dc2626;
   margin-bottom: 10px;
 }
 
 .success-text {
-  color: green;
+  color: #16a34a;
   margin-bottom: 10px;
 }

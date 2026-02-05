@@ -54,17 +54,22 @@ function CitizenDash() {
 
   return (
     <div className="dashboard">
-      
+
       {/* Sidebar */}
       <div className="sidebar">
         <h3>Citizen</h3>
 
-        <button onClick={() => navigate("/")}>
+        {/* NO navigation here */}
+        <button className="sidebar-btn active">
           Create Issue
         </button>
 
-        <button onClick={() => navigate("/my-issues")}>
-          View My Issues
+        {/* ONLY this navigates */}
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate("/my-issues")}
+        >
+          My Issues
         </button>
       </div>
 
