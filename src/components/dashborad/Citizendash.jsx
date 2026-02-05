@@ -60,7 +60,7 @@ function CitizenDash() {
 
         <button
           className="sidebar-btn"
-          onClick={() => navigate("/my-issues")}
+          onClick={() => navigate("/view_my_issues")}
         >
           My Issues
         </button>

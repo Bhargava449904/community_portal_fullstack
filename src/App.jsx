@@ -3,6 +3,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import  Dashboard  from "./components/dashboard/Dashboard";
 import Citizendash from "./components/dashboard/Citizendash";
+import MyIssues from "./components/dashborad/Myissues";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/create_issue" element={<Citizendash/>} />
+        <Route path="/view_my_issues" element={<MyIssues/>} />
       </Routes>
     </BrowserRouter>
   );
