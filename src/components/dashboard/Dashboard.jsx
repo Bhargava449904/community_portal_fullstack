@@ -10,7 +10,7 @@ import waterImg from "../../../src/assets/OIP.jpg";
 import garbageImg from "../../../src/assets/garbage.jpg";
 import lightImg from "../../../src/assets/light.jpg";
 
-export function Dashboard() {
+export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
