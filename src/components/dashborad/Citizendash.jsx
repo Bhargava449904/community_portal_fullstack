@@ -20,16 +20,14 @@ function CitizenDash() {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("location", location);
-      if (image) {
-        formData.append("image", image);
-      }
+      if (image) formData.append("image", image);
 
       const response = await fetch(
         "https://issue-portal-b46v.onrender.com/create_issue/",
         {
           method: "POST",
           body: formData,
-          credentials: "include", // IMPORTANT
+          credentials: "include",
         }
       );
 
@@ -42,25 +40,23 @@ function CitizenDash() {
 
       setSuccess("Issue created successfully ✅");
 
-      // clear form
       setTitle("");
       setDescription("");
       setLocation("");
       setImage(null);
 
     } catch (err) {
-      console.error(err);
       setError("Server not responding");
     }
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "40px auto" }}>
+    <div className="citizen-container">
       <h2>Citizen Dashboard</h2>
       <p>Create a new issue</p>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p className="error-text">{error}</p>}
+      {success && <p className="success-text">{success}</p>}
 
       <form onSubmit={handleSubmit}>
         <input
