@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./citizendash.css";
 
 function CitizenDash() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -39,7 +41,6 @@ function CitizenDash() {
       }
 
       setSuccess("Issue created successfully ✅");
-
       setTitle("");
       setDescription("");
       setLocation("");
@@ -51,18 +52,23 @@ function CitizenDash() {
   };
 
   return (
-    <div className="dashboard">
+    <div className="dashboard-layout">
 
-      {/* SIDEBAR */}
+      {/* LEFT SIDEBAR */}
       <div className="sidebar">
-        <h3>Citizen</h3>
-        <button className="sidebar-btn active">Create Issue</button>
-        <button className="sidebar-btn">My Issues</button>
+        <h2 className="logo">Community<br />Issue Portal</h2>
+
+        <button
+          className="sidebar-btn"
+          onClick={() => navigate("/my-issues")}
+        >
+          My Issues
+        </button>
       </div>
 
-      {/*  MAIN CONTENT */}
+      {/* RIGHT CONTENT */}
       <div className="content">
-        <div className="citizen-container">
+        <div className="citizen-card">
           <h2>Citizen Dashboard</h2>
           <p>Create a new issue</p>
 

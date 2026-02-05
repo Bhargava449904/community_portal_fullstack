@@ -1,124 +1,81 @@
-/* Reset / base */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
-}
-
-/* ===== Dashboard Layout ===== */
-.dashboard {
+/* LAYOUT */
+.dashboard-layout {
   display: flex;
   min-height: 100vh;
-  width: 100%;
+  background: #f4f6f8;
+  font-family: Arial, sans-serif;
 }
 
-/* ===== Sidebar ===== */
+/* SIDEBAR */
 .sidebar {
-  width: 230px;
-  background-color: #1f2937;
-  color: #ffffff;
+  width: 240px;
+  background: #1f2937;
+  color: white;
   padding: 20px;
 }
 
-.sidebar h3 {
-  margin-bottom: 25px;
-  font-size: 18px;
+.logo {
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
-/* Sidebar buttons */
 .sidebar-btn {
   width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  background-color: #374151;
-  color: #ffffff;
+  padding: 12px;
+  background: #2563eb;
   border: none;
-  border-radius: 4px;
-  text-align: left;
+  color: white;
   cursor: pointer;
-  font-size: 14px;
+  border-radius: 6px;
 }
 
-.sidebar-btn:hover {
-  background-color: #4b5563;
-}
-
-/* Active button */
-.sidebar-btn.active {
-  background-color: #2563eb;
-}
-
-/* ===== Main Content ===== */
+/* RIGHT CONTENT */
 .content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 30px;
+  padding: 40px;
 }
 
-/* ===== Form Card ===== */
-.citizen-container {
+/* CARD */
+.citizen-card {
+  background: white;
   width: 100%;
-  max-width: 520px;
-  background-color: #ffffff;
+  max-width: 500px;
   padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.citizen-container h2 {
-  margin-bottom: 5px;
-}
-
-.citizen-container p {
-  margin-bottom: 15px;
-  color: #555;
-}
-
-/* Inputs */
-.citizen-container input,
-.citizen-container textarea {
-  width: 100%;
-  padding: 9px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.citizen-container textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-/* Submit button */
-.citizen-container button {
+.citizen-card input,
+.citizen-card textarea {
   width: 100%;
   padding: 10px;
-  background-color: #2563eb;
-  color: white;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.citizen-card textarea {
+  min-height: 90px;
+}
+
+.citizen-card button {
+  width: 100%;
+  padding: 12px;
+  background: #0d6efd;
   border: none;
-  border-radius: 4px;
-  font-size: 15px;
+  color: white;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.citizen-container button:hover {
-  background-color: #1d4ed8;
-}
-
-/* Messages */
+/* MESSAGES */
 .error-text {
-  color: #dc2626;
-  margin-bottom: 10px;
+  color: red;
 }
 
 .success-text {
-  color: #16a34a;
-  margin-bottom: 10px;
+  color: green;
 }
