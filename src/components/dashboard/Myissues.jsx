@@ -8,7 +8,7 @@ function MyIssues() {
 
   useEffect(() => {
     fetch("https://issue-portal-b46v.onrender.com/view_my_issues/", {
-      method:"GET",
+      method: "GET",
       credentials: "include",
     })
       .then((res) => {
@@ -18,7 +18,8 @@ function MyIssues() {
         return res.json();
       })
       .then((data) => {
-        setIssues(data);
+        // ✅ MATCHES YOUR BACKEND
+        setIssues(data.issues);
         setLoading(false);
       })
       .catch(() => {
@@ -27,8 +28,8 @@ function MyIssues() {
       });
   }, []);
 
-  if (loading) return <p className="status-text">Loading issues...</p>;
-  if (error) return <p className="status-text error">{error}</p>;
+  if (loading) return <p>Loading issues...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="issues-page">
@@ -41,18 +42,14 @@ function MyIssues() {
           issues.map((issue) => (
             <div className="issue-card" key={issue.id}>
               <h3>{issue.title}</h3>
-              <p className="desc">{issue.description}</p>
-              <p className="location">📍 {issue.location}</p>
+              <p>{issue.description}</p>
+              <p>📍 {issue.location}</p>
 
               {issue.image && (
-                <img
-                  src={issue.image}
-                  alt="issue"
-                  className="issue-image"
-                />
+                <img src={issue.image} alt="issue" />
               )}
 
-              <span className="status">{issue.status}</span>
+              <span>{issue.status}</span>
             </div>
           ))
         )}
