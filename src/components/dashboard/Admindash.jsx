@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "./adminissues.css";
+import "./admindash.css";
 
-function AdminIssues() {
+function Admindash() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -131,4 +131,4 @@ function AdminIssues() {
   );
 }
 
-export default AdminIssues;
+export default Admindash;

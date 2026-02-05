@@ -46,7 +46,7 @@ function Login({ onSwitchToRegister }) {
         if (data.role === "citizen") {
           navigate("/create_issue");
         } else {
-          navigate("/");
+          navigate("/admin_view_all_issues");
         }
       }, 1000);
 
