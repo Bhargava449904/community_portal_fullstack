@@ -87,7 +87,7 @@ function Admindash() {
       const res = await fetch(
         `https://issue-portal-b46v.onrender.com/admin_delete_issue/${issueId}/`,
         {
-          method: "POST", // change to DELETE if backend uses DELETE
+          method: "DELETE", // change to DELETE if backend uses DELETE
           credentials: "include",
         }
       );
