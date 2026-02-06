@@ -7,7 +7,7 @@ function Admindash() {
   const [error, setError] = useState("");
 
   // 🔹 FETCH ALL ISSUES (ADMIN)
-  useEffect(() => {
+  const fetchIssues = () => {
     fetch("https://issue-portal-b46v.onrender.com/admin_view_all_issues/", {
       method: "GET",
       credentials: "include",
@@ -21,24 +21,29 @@ function Admindash() {
       .then((data) => {
         setIssues(data.issues || []);
         setLoading(false);
+        setError("");
       })
       .catch(() => {
         setError("Unable to load issues");
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchIssues();
   }, []);
 
   // 🔹 UPDATE ISSUE STATUS (ADMIN)
   const updateStatus = (issueId, newStatus) => {
-    const formData = new FormData();
-    formData.append("status", newStatus);
-
     fetch(
       `https://issue-portal-b46v.onrender.com/admin_update_issue_status/${issueId}/`,
       {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
         credentials: "include",
+        body: JSON.stringify({ status: newStatus }),
       }
     )
       .then((res) => {
@@ -47,12 +52,12 @@ function Admindash() {
         }
         return res.json();
       })
-      .then(() => {
-        // Update UI instantly
+      .then((data) => {
+        // ✅ Update admin UI immediately
         setIssues((prevIssues) =>
           prevIssues.map((issue) =>
             issue.id === issueId
-              ? { ...issue, status: newStatus }
+              ? { ...issue, status: data.status || newStatus }
               : issue
           )
         );

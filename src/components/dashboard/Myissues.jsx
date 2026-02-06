@@ -6,7 +6,8 @@ function MyIssues() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
+  // 🔁 Fetch issues from backend
+  const fetchIssues = () => {
     fetch("https://issue-portal-b46v.onrender.com/view_my_issues/", {
       method: "GET",
       credentials: "include",
@@ -18,14 +19,25 @@ function MyIssues() {
         return res.json();
       })
       .then((data) => {
-        // ✅ MATCHES YOUR BACKEND
-        setIssues(data.issues);
+        setIssues(data.issues || []);
         setLoading(false);
+        setError("");
       })
       .catch(() => {
         setError("Unable to load issues");
         setLoading(false);
       });
+  };
+
+  // 🟢 Initial load + auto refresh
+  useEffect(() => {
+    fetchIssues(); // first time
+
+    const interval = setInterval(() => {
+      fetchIssues(); // auto refresh
+    }, 10000); // every 10 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) return <p>Loading issues...</p>;
@@ -49,7 +61,9 @@ function MyIssues() {
                 <img src={issue.image} alt="issue" />
               )}
 
-              <span>{issue.status}</span>
+              <span className={`status ${issue.status}`}>
+                {issue.status.replace("_", " ")}
+              </span>
             </div>
           ))
         )}
