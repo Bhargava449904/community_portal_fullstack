@@ -6,6 +6,7 @@ function Admindash() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [updatingId, setUpdatingId] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
 
   // 🔹 FETCH ALL ISSUES (ADMIN)
   const fetchIssues = async () => {
@@ -18,7 +19,7 @@ function Admindash() {
         }
       );
 
-      if (!res.ok) throw new Error("Failed to fetch issues");
+      if (!res.ok) throw new Error();
 
       const data = await res.json();
       setIssues(data.issues || []);
@@ -34,7 +35,7 @@ function Admindash() {
     fetchIssues();
   }, []);
 
-  // 🔹 UPDATE ISSUE STATUS (ADMIN)
+  // 🔹 UPDATE ISSUE STATUS
   const updateStatus = async (issueId, newStatus) => {
     setUpdatingId(issueId);
 
@@ -55,11 +56,9 @@ function Admindash() {
 
       if (!res.ok) {
         alert(data.error || "Status update failed");
-        setUpdatingId(null);
         return;
       }
 
-      // ✅ Update admin UI instantly
       setIssues((prev) =>
         prev.map((issue) =>
           issue.id === issueId
@@ -67,10 +66,47 @@ function Admindash() {
             : issue
         )
       );
-    } catch (err) {
+    } catch {
       alert("Network error");
     } finally {
       setUpdatingId(null);
+    }
+  };
+
+  // 🗑️ DELETE ISSUE
+  const deleteIssue = async (issueId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this issue?"
+    );
+
+    if (!confirmDelete) return;
+
+    setDeletingId(issueId);
+
+    try {
+      const res = await fetch(
+        `https://issue-portal-b46v.onrender.com/admin_delete_issue/${issueId}/`,
+        {
+          method: "POST", // change to DELETE if backend uses DELETE
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Delete failed");
+        return;
+      }
+
+      // ✅ Remove issue from UI
+      setIssues((prev) =>
+        prev.filter((issue) => issue.id !== issueId)
+      );
+    } catch {
+      alert("Network error");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -109,7 +145,7 @@ function Admindash() {
                 <p>{issue.reported_by.email}</p>
               </div>
 
-              {/* 🔹 STATUS UPDATE BUTTONS */}
+              {/* 🔹 ACTION BUTTONS */}
               <div className="actions">
                 <button
                   className="btn pending"
@@ -128,7 +164,9 @@ function Admindash() {
                     issue.status === "in_progress" ||
                     updatingId === issue.id
                   }
-                  onClick={() => updateStatus(issue.id, "in_progress")}
+                  onClick={() =>
+                    updateStatus(issue.id, "in_progress")
+                  }
                 >
                   In Progress
                 </button>
@@ -142,6 +180,14 @@ function Admindash() {
                   onClick={() => updateStatus(issue.id, "resolved")}
                 >
                   Resolved
+                </button>
+
+                <button
+                  className="btn delete"
+                  disabled={deletingId === issue.id}
+                  onClick={() => deleteIssue(issue.id)}
+                >
+                  {deletingId === issue.id ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
