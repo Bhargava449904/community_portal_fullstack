@@ -63,12 +63,14 @@
 /* ACTION BUTTONS */
 .actions {
   display: flex;
+  flex-wrap: wrap;   /* ✅ IMPORTANT */
   gap: 6px;
 }
 
+
 /* COMMON BUTTON */
 .btn {
-  flex: 1;
+  flex: 1 1 48%;
   padding: 6px;
   border: none;
   border-radius: 6px;
