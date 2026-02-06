@@ -5,28 +5,29 @@ function Admindash() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [updatingId, setUpdatingId] = useState(null);
 
   // 🔹 FETCH ALL ISSUES (ADMIN)
-  const fetchIssues = () => {
-    fetch("https://issue-portal-b46v.onrender.com/admin_view_all_issues/", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch issues");
+  const fetchIssues = async () => {
+    try {
+      const res = await fetch(
+        "https://issue-portal-b46v.onrender.com/admin_view_all_issues/",
+        {
+          method: "GET",
+          credentials: "include",
         }
-        return res.json();
-      })
-      .then((data) => {
-        setIssues(data.issues || []);
-        setLoading(false);
-        setError("");
-      })
-      .catch(() => {
-        setError("Unable to load issues");
-        setLoading(false);
-      });
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch issues");
+
+      const data = await res.json();
+      setIssues(data.issues || []);
+      setLoading(false);
+      setError("");
+    } catch {
+      setError("Unable to load issues");
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -34,37 +35,43 @@ function Admindash() {
   }, []);
 
   // 🔹 UPDATE ISSUE STATUS (ADMIN)
-  const updateStatus = (issueId, newStatus) => {
-    fetch(
-      `https://issue-portal-b46v.onrender.com/admin_update_issue_status/${issueId}/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ status: newStatus }),
-      }
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Status update failed");
+  const updateStatus = async (issueId, newStatus) => {
+    setUpdatingId(issueId);
+
+    try {
+      const res = await fetch(
+        `https://issue-portal-b46v.onrender.com/admin_update_issue_status/${issueId}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ status: newStatus }),
         }
-        return res.json();
-      })
-      .then((data) => {
-        // ✅ Update admin UI immediately
-        setIssues((prevIssues) =>
-          prevIssues.map((issue) =>
-            issue.id === issueId
-              ? { ...issue, status: data.status || newStatus }
-              : issue
-          )
-        );
-      })
-      .catch(() => {
-        alert("Status update failed");
-      });
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || "Status update failed");
+        setUpdatingId(null);
+        return;
+      }
+
+      // ✅ Update admin UI instantly
+      setIssues((prev) =>
+        prev.map((issue) =>
+          issue.id === issueId
+            ? { ...issue, status: data.status }
+            : issue
+        )
+      );
+    } catch (err) {
+      alert("Network error");
+    } finally {
+      setUpdatingId(null);
+    }
   };
 
   if (loading) return <p className="status-text">Loading issues...</p>;
@@ -106,7 +113,10 @@ function Admindash() {
               <div className="actions">
                 <button
                   className="btn pending"
-                  disabled={issue.status === "pending"}
+                  disabled={
+                    issue.status === "pending" ||
+                    updatingId === issue.id
+                  }
                   onClick={() => updateStatus(issue.id, "pending")}
                 >
                   Pending
@@ -114,7 +124,10 @@ function Admindash() {
 
                 <button
                   className="btn in-progress"
-                  disabled={issue.status === "in_progress"}
+                  disabled={
+                    issue.status === "in_progress" ||
+                    updatingId === issue.id
+                  }
                   onClick={() => updateStatus(issue.id, "in_progress")}
                 >
                   In Progress
@@ -122,7 +135,10 @@ function Admindash() {
 
                 <button
                   className="btn resolved"
-                  disabled={issue.status === "resolved"}
+                  disabled={
+                    issue.status === "resolved" ||
+                    updatingId === issue.id
+                  }
                   onClick={() => updateStatus(issue.id, "resolved")}
                 >
                   Resolved
