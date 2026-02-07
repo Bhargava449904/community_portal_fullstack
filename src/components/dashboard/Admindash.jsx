@@ -109,11 +109,11 @@ function Admindash() {
       <div className="admin-sidebar">
         <h2>Community Issue Portal</h2>
 
-        <button onClick={() => navigate("/admin/create-admin")}>
+        <button onClick={() => navigate("/super_admin_create_admin")}>
           Create Admin
         </button>
 
-        <button onClick={() => navigate("/admin/view-admins")}>
+        <button onClick={() => navigate("/super_admin_view_admins")}>
           View Admins
         </button>
       </div>

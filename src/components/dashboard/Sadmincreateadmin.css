@@ -1,0 +1,80 @@
+/* PAGE WRAPPER */
+.create-admin-page {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* TITLE */
+.create-admin-page h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+/* FORM */
+.create-admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* INPUTS */
+.create-admin-form input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+.create-admin-form input:focus {
+  border-color: #2563eb;
+}
+
+/* BUTTON */
+.create-admin-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.create-admin-form button:hover {
+  background: #1d4ed8;
+}
+
+.create-admin-form button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* MESSAGES */
+.success {
+  margin-top: 14px;
+  color: #16a34a;
+  text-align: center;
+  font-size: 14px;
+}
+
+.error {
+  margin-top: 14px;
+  color: #dc2626;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .create-admin-page {
+    margin: 30px 16px;
+    padding: 20px;
+  }
+}

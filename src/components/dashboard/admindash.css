@@ -267,24 +267,24 @@
 
 /* STATUS BUTTON COLORS */
 .btn.pending {
-  background: #6b7280;
+  background-color: #6b7280;
 }
 
 .btn.in-progress {
-  background: #f59e0b;
+  background-color: #f59e0b;
 }
 
 .btn.resolved {
-  background: #16a34a;
+  background-color: #16a34a;
 }
 
 /* DELETE BUTTON */
 .btn.delete {
-  background: #dc2626;
+background-color: #dc2626;
 }
 
 .btn.delete:hover {
-  background: #b91c1c;
+  background-color: #b91c1c;
 }
 
 /* ===============================
