@@ -6,6 +6,7 @@ import Citizendash from "./components/dashboard/Citizendash";
 import MyIssues from "./components/dashboard/Myissues";
 import Admindash from "./components/dashboard/Admindash";
 import Sadmincreateadmin from "./components/dashboard/Sadmincreateadmin";
+import Sadminviewalladmin from "./components/dashboard/Sadminviewalladmin"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/view_my_issues" element={<MyIssues/>} />
         <Route path="/admin_view_all_issues/" element={<Admindash/>} />
         <Route path="/super_admin_create_admin/" element={<Sadmincreateadmin/>} />
+        <Route path="/super_admin_view_admins/" element={<Sadminviewalladmin/>} />
       </Routes>
     </BrowserRouter>
   );
