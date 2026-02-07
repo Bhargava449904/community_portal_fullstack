@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./admindash.css";
 
 function Admindash() {
+  const navigate = useNavigate();
+
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -44,9 +47,7 @@ function Admindash() {
         `https://issue-portal-b46v.onrender.com/admin_update_issue_status/${issueId}/`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({ status: newStatus }),
         }
@@ -61,9 +62,7 @@ function Admindash() {
 
       setIssues((prev) =>
         prev.map((issue) =>
-          issue.id === issueId
-            ? { ...issue, status: data.status }
-            : issue
+          issue.id === issueId ? { ...issue, status: data.status } : issue
         )
       );
     } catch {
@@ -75,11 +74,7 @@ function Admindash() {
 
   // 🗑️ DELETE ISSUE
   const deleteIssue = async (issueId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this issue?"
-    );
-
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this issue?")) return;
 
     setDeletingId(issueId);
 
@@ -87,22 +82,17 @@ function Admindash() {
       const res = await fetch(
         `https://issue-portal-b46v.onrender.com/admin_delete_issue/${issueId}/`,
         {
-          method: "DELETE", // change to DELETE if backend uses DELETE
+          method: "DELETE",
           credentials: "include",
         }
       );
 
-      const data = await res.json();
-
       if (!res.ok) {
-        alert(data.error || "Delete failed");
+        alert("Delete failed");
         return;
       }
 
-      // ✅ Remove issue from UI
-      setIssues((prev) =>
-        prev.filter((issue) => issue.id !== issueId)
-      );
+      setIssues((prev) => prev.filter((i) => i.id !== issueId));
     } catch {
       alert("Network error");
     } finally {
@@ -110,89 +100,63 @@ function Admindash() {
     }
   };
 
-  if (loading) return <p className="status-text">Loading issues...</p>;
-  if (error) return <p className="status-text error">{error}</p>;
+  if (loading) return <p>Loading issues...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div className="admin-issues-page">
-      <h2>All Reported Issues</h2>
+    <div className="admin-container">
+      {/* 🔹 SIDEBAR (20%) */}
+      <div className="admin-sidebar">
+        <h2>Community Issue Portal</h2>
 
-      <div className="issues-grid">
-        {issues.length === 0 ? (
-          <p>No issues found</p>
-        ) : (
-          issues.map((issue) => (
-            <div className="issue-card" key={issue.id}>
-              <h3>{issue.title}</h3>
-              <p className="desc">{issue.description}</p>
-              <p className="location">📍 {issue.location}</p>
+        <button onClick={() => navigate("/admin/create-admin")}>
+          Create Admin
+        </button>
 
-              {issue.image && (
-                <img
-                  src={issue.image}
-                  alt="issue"
-                  className="issue-image"
-                />
-              )}
+        <button onClick={() => navigate("/admin/view-admins")}>
+          View Admins
+        </button>
+      </div>
 
-              <p className="status">
-                Status: <strong>{issue.status}</strong>
-              </p>
+      {/* 🔹 MAIN CONTENT (80%) */}
+      <div className="admin-main">
+        <h2>All Reported Issues</h2>
 
-              <div className="reported-by">
-                <p><b>Reported by:</b></p>
-                <p>{issue.reported_by.username}</p>
-                <p>{issue.reported_by.email}</p>
+        <div className="issues-grid">
+          {issues.length === 0 ? (
+            <p>No issues found</p>
+          ) : (
+            issues.map((issue) => (
+              <div className="issue-card" key={issue.id}>
+                {/* 🔽 YOUR EXISTING ISSUE CARD CODE */}
+                <h3>{issue.title}</h3>
+                <p>{issue.description}</p>
+                <p>📍 {issue.location}</p>
+
+                {issue.image && (
+                  <img src={issue.image} alt="issue" />
+                )}
+
+                <p>Status: <b>{issue.status}</b></p>
+
+                <div className="actions">
+                  <button onClick={() => updateStatus(issue.id, "pending")}>
+                    Pending
+                  </button>
+                  <button onClick={() => updateStatus(issue.id, "in_progress")}>
+                    In Progress
+                  </button>
+                  <button onClick={() => updateStatus(issue.id, "resolved")}>
+                    Resolved
+                  </button>
+                  <button onClick={() => deleteIssue(issue.id)}>
+                    Delete
+                  </button>
+                </div>
               </div>
-
-              {/* 🔹 ACTION BUTTONS */}
-              <div className="actions">
-                <button
-                  className="btn pending"
-                  disabled={
-                    issue.status === "pending" ||
-                    updatingId === issue.id
-                  }
-                  onClick={() => updateStatus(issue.id, "pending")}
-                >
-                  Pending
-                </button>
-
-                <button
-                  className="btn in-progress"
-                  disabled={
-                    issue.status === "in_progress" ||
-                    updatingId === issue.id
-                  }
-                  onClick={() =>
-                    updateStatus(issue.id, "in_progress")
-                  }
-                >
-                  In Progress
-                </button>
-
-                <button
-                  className="btn resolved"
-                  disabled={
-                    issue.status === "resolved" ||
-                    updatingId === issue.id
-                  }
-                  onClick={() => updateStatus(issue.id, "resolved")}
-                >
-                  Resolved
-                </button>
-
-                <button
-                  className="btn delete"
-                  disabled={deletingId === issue.id}
-                  onClick={() => deleteIssue(issue.id)}
-                >
-                  {deletingId === issue.id ? "Deleting..." : "Delete"}
-                </button>
-              </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

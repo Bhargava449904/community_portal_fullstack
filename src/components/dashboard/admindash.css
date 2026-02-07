@@ -114,7 +114,191 @@
 
 .btn.delete:hover {
   background: #b91c1c;
+}/* ===============================
+   LAYOUT (NEW)
+================================ */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f8;
 }
+
+/* 20% SIDEBAR */
+.admin-sidebar {
+  width: 20%;
+  min-width: 220px;
+  background: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+.admin-sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+.admin-sidebar button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.admin-sidebar button:hover {
+  background: #1d4ed8;
+}
+
+/* 80% CONTENT */
+.admin-main {
+  width: 80%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* ===============================
+   PAGE
+================================ */
+.admin-issues-page {
+  padding: 0; /* moved padding to admin-main */
+}
+
+.admin-issues-page h2 {
+  margin-bottom: 16px;
+  font-size: 22px;
+}
+
+/* ===============================
+   GRID
+================================ */
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+/* ===============================
+   CARD
+================================ */
+.issue-card {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.issue-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+/* DESCRIPTION */
+.desc {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* LOCATION */
+.location {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+/* IMAGE */
+.issue-image {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* STATUS */
+.status {
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* REPORTED BY */
+.reported-by {
+  background: #f4f6f8;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+/* ===============================
+   ACTION BUTTONS
+================================ */
+.actions {
+  display: flex;
+  flex-wrap: wrap;     /* ✅ keep */
+  gap: 6px;
+}
+
+/* COMMON BUTTON */
+.btn {
+  flex: 1 1 48%;       /* ✅ two buttons per row */
+  padding: 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* STATUS BUTTON COLORS */
+.btn.pending {
+  background: #6b7280;
+}
+
+.btn.in-progress {
+  background: #f59e0b;
+}
+
+.btn.resolved {
+  background: #16a34a;
+}
+
+/* DELETE BUTTON */
+.btn.delete {
+  background: #dc2626;
+}
+
+.btn.delete:hover {
+  background: #b91c1c;
+}
+
+/* ===============================
+   LOADING / ERROR
+================================ */
+.status-text {
+  padding: 20px;
+  font-size: 14px;
+}
+
+.status-text.error {
+  color: red;
+}
+
 
 /* LOADING / ERROR TEXT */
 .status-text {
